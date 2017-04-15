@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
          */
         //初始化一个Adapter
         Model model = new Model();
-        ArrayAdapter<String> entryAdapter = new ArrayAdapter<String>(this, R.layout.info_card, model.getEntries());
+        ArrayAdapter<Entry> entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries());
         //通过ID获取listView
         ListView listView = (ListView) findViewById(R.id.ListViewId);
         //设置listView的Adapter
