@@ -79,6 +79,7 @@ public class Model {
         test.baidu.picture = null;       //图片
 
         entries.add(test);
+        entries.add(test);
 
     }
 }
