@@ -7,13 +7,16 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yancloud.android.reflection.get.YanCloudGet;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
         /*
           处理ListView
          */
+        String baidu_str = readStream(getResources().openRawResource(R.raw.baidu_result));
         //初始化一个Adapter
         Model model = new Model();
-        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries());
+        Log.v("zsy","*********");
+        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(baidu_str,"",""));
         //通过ID获取listView
         ListView listView = (ListView) findViewById(R.id.ListViewId);
         //设置listView的Adapter
@@ -118,7 +123,19 @@ public class MainActivity extends AppCompatActivity {
         return stringBuilder.toString();
     }
 
-
+    private String readStream(InputStream is) {
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            int i = is.read();
+            while(i != -1) {
+                bo.write(i);
+                i = is.read();
+            }
+            return bo.toString();
+        } catch (IOException e) {
+            return "";
+        }
+    }
 
 
 }
