@@ -3,30 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="3"
         android:layout_height="match_parent"
         android:layout_marginBottom="10dp"
+        android:layout_weight="3"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/restaurant_image"
-            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_margin="15dp"
-            android:layout_height="wrap_content" />
+            app:srcCompat="@drawable/example" />
 
         <TextView
             android:id="@+id/restaurant_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="16dp"
-            android:layout_margin="15dp"
-            android:text="Restaurant Name" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:text="云南过桥米线"
+            android:textSize="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,30 +39,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:textSize="14dp"
-                android:textColor="@color/colorOrange" />
+                android:text="4.6"
+                android:textColor="@color/colorOrange"
+                android:textSize="14dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:text="分" />
+                android:text="分"
+                android:textSize="14dp" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/distance"
-            android:layout_marginLeft="15dp"
-            android:textSize="14dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="距离160米"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/orders"
-            android:layout_marginLeft="15dp"
-            android:textSize="14dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="月售1222单"
+            android:textSize="14dp" />
 
     </LinearLayout>
 
@@ -75,12 +80,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="@drawable/customer_selector"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
                 app:srcCompat="@drawable/icon_baidu" />
 
             <TextView
@@ -88,39 +95,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
-                android:layout_margin="15dp" />
+                android:text="￥20起送  ￥5配送   30分钟\n满20减5  满50减10  满100减20\n人均 30\n可用红包 ￥2\n可用代金券 ￥5"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/customer_selector"
+            android:clickable="true"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/icon_eleme"/>
+                android:layout_marginTop="15dp"
+                app:srcCompat="@drawable/icon_eleme" />
 
             <TextView
                 android:id="@+id/Eleme_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13dp"
-                android:layout_margin="15dp" />
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:text="￥20起送  ￥5配送   30分钟\n满20减3  满50减8  满100减20\n人均 25\n可用红包 ￥2"
+                android:textSize="13dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="@drawable/customer_selector"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
                 app:srcCompat="@drawable/icon_meituan"/>
 
             <TextView
@@ -128,7 +145,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
-                android:layout_margin="15dp" />
+                android:text="￥20起送  ￥5配送   30分钟\n满20减5  满50减10  满100减20\n人均 32\n可用代金券 ￥5"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"/>
 
         </LinearLayout>
 
