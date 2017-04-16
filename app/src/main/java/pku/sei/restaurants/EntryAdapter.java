@@ -1,11 +1,13 @@
 package pku.sei.restaurants;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,25 +29,108 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
         TextView name = (TextView) convertView.findViewById(R.id.restaurant_name);
         name.setText(entry.name);
 
+        double dScore = 0.0;
+        if (entry.hasBaidu) {
+            dScore += Double.valueOf(entry.baidu.score);
+        }
+        if (entry.hasEleme) {
+            dScore += Double.valueOf(entry.eleme.score);
+        }
+        if (entry.hasMeituan) {
+            dScore += Double.valueOf(entry.meituan.score);
+        }
+        dScore /= (double) entry.count;
         TextView score = (TextView) convertView.findViewById(R.id.score);
-        score.setText("4.5");
+        score.setText(Double.toString(dScore));
 
+        int nDistance = 0;
+        if (entry.hasBaidu) {
+            nDistance += Integer.valueOf(entry.baidu.distance);
+        }
+        if (entry.hasEleme) {
+            nDistance += Integer.valueOf(entry.eleme.distance);
+        }
+        if (entry.hasMeituan) {
+            nDistance += Integer.valueOf(entry.meituan.distance);
+        }
+        nDistance /= entry.count;
         TextView distance = (TextView) convertView.findViewById(R.id.distance);
-        distance.setText("test");
+        distance.setText("距离" + Integer.toString(nDistance) + "米");
 
+        int nOrders = 0;
+        if (entry.hasBaidu) {
+            nOrders += Integer.valueOf(entry.baidu.monthSaleNum);
+        }
+        if (entry.hasEleme) {
+            nOrders += Integer.valueOf(entry.eleme.monthSaleNum);
+        }
+        if (entry.hasMeituan) {
+            nOrders += Integer.valueOf(entry.meituan.monthSaleNum);
+        }
         TextView orders = (TextView) convertView.findViewById(R.id.orders);
-        orders.setText("test");
-
-        TextView Baidu_info = (TextView) convertView.findViewById(R.id.Baidu_info);
-        Baidu_info.setText("test");
-
-        TextView Eleme_info = (TextView) convertView.findViewById(R.id.Eleme_info);
-        Eleme_info.setText("test");
-
-        TextView Meituan_info = (TextView) convertView.findViewById(R.id.Meituan_info);
-        Meituan_info.setText("test");
+        orders.setText("月售" + Integer.toString(nOrders) + "单");
 
 
+        if (entry.hasBaidu) {
+            StringBuilder text = new StringBuilder();
+            text.append("￥" + entry.baidu.startPrice + "起送  ￥" + entry.baidu.deliveryPrice + "配送   " + entry.baidu.avgDeliveryTime + "分钟\n");
+            for (String s : entry.baidu.discount) {
+                text.append(s + "\n");
+            }
+            for (String s : entry.baidu.luckyMoney) {
+                text.append(s + "\n");
+            }
+            for (String s : entry.baidu.coupon) {
+                text.append(s + "\n");
+            }
+            TextView Baidu_info = (TextView) convertView.findViewById(R.id.Baidu_info);
+            Baidu_info.setText(text);
+        } else {
+            LinearLayout layout = (LinearLayout) convertView.findViewById(R.id.restaurant_detail);
+            LinearLayout baidu = (LinearLayout) convertView.findViewById(R.id.baidu_layout);
+            layout.removeView(baidu);
+        }
+
+        if (entry.hasEleme) {
+            StringBuilder text = new StringBuilder();
+            text.append("￥" + entry.eleme.startPrice + "起送  ￥" + entry.eleme.deliveryPrice + "配送   " + entry.eleme.avgDeliveryTime + "分钟\n");
+            for (String s : entry.eleme.discount) {
+                text.append(s + "\n");
+            }
+            for (String s : entry.eleme.luckyMoney) {
+                text.append(s + "\n");
+            }
+            for (String s : entry.eleme.coupon) {
+                text.append(s + "\n");
+            }
+            TextView Eleme_info = (TextView) convertView.findViewById(R.id.Eleme_info);
+            Eleme_info.setText(text);
+        } else {
+            LinearLayout layout = (LinearLayout) convertView.findViewById(R.id.restaurant_detail);
+            LinearLayout eleme = (LinearLayout) convertView.findViewById(R.id.eleme_layout);
+            layout.removeView(eleme);
+        }
+
+        if (entry.hasMeituan) {
+            StringBuilder text = new StringBuilder();
+            text.append("￥" + entry.meituan.startPrice + "起送  ￥" + entry.meituan.deliveryPrice + "配送   " + entry.meituan.avgDeliveryTime + "分钟\n");
+            for (String s : entry.meituan.discount) {
+                text.append(s + "\n");
+            }
+            for (String s : entry.meituan.luckyMoney) {
+                text.append(s + "\n");
+            }
+            for (String s : entry.meituan.coupon) {
+                text.append(s + "\n");
+            }
+            TextView Meituan_info = (TextView) convertView.findViewById(R.id.Meituan_info);
+            Meituan_info.setText(text);
+        } else {
+            LinearLayout layout = (LinearLayout) convertView.findViewById(R.id.restaurant_detail);
+            LinearLayout meituan = (LinearLayout) convertView.findViewById(R.id.meituan_layout);
+            layout.removeView(meituan);
+        }
+        
         return convertView;
 
     }

@@ -78,6 +78,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/baidu_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -103,6 +104,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/eleme_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/customer_selector"
@@ -128,6 +130,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/meituan_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
