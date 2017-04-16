@@ -50,12 +50,13 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:background="@color/white"
-            android:drawableLeft="@drawable/search_icon"
+            android:drawableLeft="@drawable/search_icon_1"
             android:drawablePadding="10dp"
             android:paddingLeft="10dp"
             android:hint="请输入关键字"
             android:imeOptions="actionSearch"
             android:inputType="text"
+            android:textColorHint="@color/colorOrange"
             android:textSize="16sp" />
 
         <Button
