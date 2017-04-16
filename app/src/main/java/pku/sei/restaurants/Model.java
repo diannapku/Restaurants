@@ -160,6 +160,8 @@ public class Model {
         test.baidu.picture = null;       //图片
 
         entries.add(test);
+
+        test.hasBaidu = false;
         entries.add(test);
 
     }

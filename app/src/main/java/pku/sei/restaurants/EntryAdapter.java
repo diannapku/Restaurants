@@ -2,13 +2,14 @@ package pku.sei.restaurants;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
+import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -83,8 +84,24 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             for (String s : entry.baidu.coupon) {
                 text.append(s + "\n");
             }
+            text.deleteCharAt(text.length()-1);
             TextView Baidu_info = (TextView) convertView.findViewById(R.id.Baidu_info);
             Baidu_info.setText(text);
+
+            LinearLayout baidu = (LinearLayout) convertView.findViewById(R.id.baidu_layout);
+            baidu.setOnClickListener(new View.OnClickListener(){
+               @Override
+               public void onClick(View v) {
+                   try {
+                       PackageManager packageManager = getContext().getPackageManager();
+                       Intent intent = packageManager.getLaunchIntentForPackage("com.baidu.lbs.waimai");
+                       getContext().startActivity(intent);
+                   } catch (Exception e) {
+                       Toast.makeText(getContext(), "跳转到百度外卖失败", Toast.LENGTH_SHORT).show();
+                   }
+               }
+            });
+
         } else {
             LinearLayout layout = (LinearLayout) convertView.findViewById(R.id.restaurant_detail);
             LinearLayout baidu = (LinearLayout) convertView.findViewById(R.id.baidu_layout);
@@ -103,8 +120,23 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             for (String s : entry.eleme.coupon) {
                 text.append(s + "\n");
             }
+            text.deleteCharAt(text.length()-1);
             TextView Eleme_info = (TextView) convertView.findViewById(R.id.Eleme_info);
             Eleme_info.setText(text);
+
+            LinearLayout eleme = (LinearLayout) convertView.findViewById(R.id.eleme_layout);
+            eleme.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    try {
+                        PackageManager packageManager = getContext().getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage("me.ele");
+                        getContext().startActivity(intent);
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), "跳转到饿了么失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         } else {
             LinearLayout layout = (LinearLayout) convertView.findViewById(R.id.restaurant_detail);
             LinearLayout eleme = (LinearLayout) convertView.findViewById(R.id.eleme_layout);
@@ -123,14 +155,30 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             for (String s : entry.meituan.coupon) {
                 text.append(s + "\n");
             }
+            text.deleteCharAt(text.length()-1);
             TextView Meituan_info = (TextView) convertView.findViewById(R.id.Meituan_info);
             Meituan_info.setText(text);
+
+            LinearLayout meituan = (LinearLayout) convertView.findViewById(R.id.meituan_layout);
+            meituan.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    try {
+                        PackageManager packageManager = getContext().getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage("com.sankuai.meituan.takeoutnew");
+                        getContext().startActivity(intent);
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), "跳转到美团外卖失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
         } else {
             LinearLayout layout = (LinearLayout) convertView.findViewById(R.id.restaurant_detail);
             LinearLayout meituan = (LinearLayout) convertView.findViewById(R.id.meituan_layout);
             layout.removeView(meituan);
         }
-        
+
         return convertView;
 
     }
