@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -8,33 +9,128 @@
         android:layout_width="0dp"
         android:layout_weight="3"
         android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/restaurant_image"
             android:layout_gravity="center_vertical"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_margin="15dp"
             android:layout_height="wrap_content" />
 
-        <TextView android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/restaurant_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:id="@+id/restaurant_name"
             android:textSize="16dp"
             android:layout_margin="15dp"
             android:text="Restaurant Name" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textSize="14dp"
+                android:textColor="@color/colorOrange" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="分" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_marginLeft="15dp"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/orders"
+            android:layout_marginLeft="15dp"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/restaurant_detail"
         android:layout_width="0dp"
         android:layout_weight="5"
+        android:layout_marginBottom="10dp"
         android:layout_height="match_parent"
-        android:id="@+id/restaurant_detail"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/icon_baidu" />
+
+            <TextView
+                android:id="@+id/Baidu_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_margin="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/icon_eleme"/>
+
+            <TextView
+                android:id="@+id/Eleme_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_margin="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/icon_meituan"/>
+
+            <TextView
+                android:id="@+id/Meituan_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_margin="15dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
