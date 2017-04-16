@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(entryAdapter);
     }
 
+
     private Location getLocation() {
         String locationProvider;
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

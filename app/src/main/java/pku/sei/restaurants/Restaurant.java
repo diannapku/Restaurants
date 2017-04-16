@@ -16,7 +16,7 @@ public class Restaurant {
     public String startPrice = "";    //起送价
     public String avgDeliveryTime = ""; //配送时间
     public List<String> discount = new ArrayList<>(); //折扣
-    public String luckyMondy = "";    //红包
-    public String coupon = "";        //优惠券
+    public List<String> luckyMoney = new ArrayList<>();;    //红包
+    public List<String> coupon = new ArrayList<>();;        //优惠券
     public String picture = "";       //图片
 }

@@ -7,11 +7,13 @@ package pku.sei.restaurants;
 public class Entry {
 
     public String name = "";
+    public int count = 0;
+    public int weight = 0;
     public boolean hasEleme = false;
     public boolean hasMeituan = false;
     public boolean hasBaidu = false;
-    public Restaurant eleme = new Restaurant();
-    public Restaurant meituan = new Restaurant();
-    public Restaurant baidu = new Restaurant();
+    public Restaurant eleme = null;
+    public Restaurant meituan = null;
+    public Restaurant baidu = null;
 
 }
