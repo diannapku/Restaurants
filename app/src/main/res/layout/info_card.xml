@@ -17,7 +17,6 @@
             android:id="@+id/restaurant_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_margin="15dp"
             app:srcCompat="@drawable/example" />
 
@@ -25,12 +24,17 @@
             android:id="@+id/restaurant_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:text="云南过桥米线"
             android:textSize="16dp" />
 
         <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -38,7 +42,6 @@
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:text="4.6"
                 android:textColor="@color/colorOrange"
                 android:textSize="14dp" />
@@ -55,7 +58,9 @@
             android:id="@+id/distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:text="距离160米"
             android:textSize="14dp" />
 
@@ -63,7 +68,9 @@
             android:id="@+id/orders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:text="月售1222单"
             android:textSize="14dp" />
 
