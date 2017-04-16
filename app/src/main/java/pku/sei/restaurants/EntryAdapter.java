@@ -1,8 +1,6 @@
 package pku.sei.restaurants;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +81,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             for (String s : entry.baidu.coupon) {
                 text.append(s + "\n");
             }
+            text.deleteCharAt(text.length()-1);
             TextView Baidu_info = (TextView) convertView.findViewById(R.id.Baidu_info);
             Baidu_info.setText(text);
         } else {
@@ -103,6 +102,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             for (String s : entry.eleme.coupon) {
                 text.append(s + "\n");
             }
+            text.deleteCharAt(text.length()-1);
             TextView Eleme_info = (TextView) convertView.findViewById(R.id.Eleme_info);
             Eleme_info.setText(text);
         } else {
@@ -123,6 +123,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             for (String s : entry.meituan.coupon) {
                 text.append(s + "\n");
             }
+            text.deleteCharAt(text.length()-1);
             TextView Meituan_info = (TextView) convertView.findViewById(R.id.Meituan_info);
             Meituan_info.setText(text);
         } else {
@@ -130,7 +131,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             LinearLayout meituan = (LinearLayout) convertView.findViewById(R.id.meituan_layout);
             layout.removeView(meituan);
         }
-        
+
         return convertView;
 
     }
