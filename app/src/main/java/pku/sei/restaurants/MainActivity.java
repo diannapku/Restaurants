@@ -8,6 +8,9 @@ import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,9 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
         /*
           处理搜索栏
-          好像不用处理 = =
          */
+        Button search = (Button) findViewById(R.id.search_btn_back);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editSearch = (EditText) findViewById(R.id.search_box);
+                setListView(editSearch.getText().toString());
+            }
+        });
 
+    }
+
+    private void setListView(String search_str) {
         /*
           处理ListView
          */
@@ -59,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         //初始化一个Adapter
         Model model = new Model();
         Log.v("zsy","*********");
-        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(baidu_str,"",""));
+        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(baidu_str,"","",search_str));
         //通过ID获取listView
         ListView listView = (ListView) findViewById(R.id.ListViewId);
         //设置listView的Adapter

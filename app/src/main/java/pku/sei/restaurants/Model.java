@@ -22,22 +22,22 @@ public class Model {
     public List<Entry> entries = new ArrayList<>();
 
     // 从 API 获取信息
-    private void setElemeEntryList() {
+    private void setElemeEntryList(String search_str) {
 
     }
-    private void setMeituanEntryList() {
+    private void setMeituanEntryList(String search_str) {
 
     }
-    private void setBaiduEntryList() {
+    private void setBaiduEntryList(String search_str) {
 
     }
-    private void setElemeEntryList(String eleme_str) {
+    private void setElemeEntryList(String eleme_str, String search_str) {
 
     }
-    private void setMeituanEntryList(String meituan_str) {
+    private void setMeituanEntryList(String meituan_str, String search_str) {
 
     }
-    private void setBaiduEntryList(String baidu_list) {
+    private void setBaiduEntryList(String baidu_list, String search_str) {
         baidu_list = "{\"list\":" + baidu_list + "}";
         try{
             JSONObject jsonObject = new JSONObject(baidu_list);
@@ -67,11 +67,11 @@ public class Model {
 
     }
 
-    public List<Entry> getEntries() {
+    public List<Entry> getEntries(String search_str) {
 
-        setElemeEntryList();
-        setMeituanEntryList();
-        setBaiduEntryList();
+        setElemeEntryList(search_str);
+        setMeituanEntryList(search_str);
+        setBaiduEntryList(search_str);
         mergeEntries();
 
 
@@ -81,11 +81,11 @@ public class Model {
         return entries;
     }
 
-    public List<Entry> getEntries(String baidu_str, String meituan_str, String eleme_str) {
+    public List<Entry> getEntries(String baidu_str, String meituan_str, String eleme_str, String search_str) {
 
-        setElemeEntryList(eleme_str);
-        setMeituanEntryList(meituan_str);
-        setBaiduEntryList(baidu_str);
+        setElemeEntryList(eleme_str, search_str);
+        setMeituanEntryList(meituan_str, search_str);
+        setBaiduEntryList(baidu_str, search_str);
         mergeEntries();
 
         for (int i = 0; i < baidu.size(); i++) {
