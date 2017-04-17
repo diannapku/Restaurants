@@ -55,12 +55,13 @@ public class MainActivity extends AppCompatActivity {
         /*
           处理搜索栏
          */
-        Button search = (Button) findViewById(R.id.search_btn_back);
+        Button search = (Button)findViewById(R.id.search_btn);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editSearch = (EditText) findViewById(R.id.search_box);
-                setListView(editSearch.getText().toString());
+                EditText editSearch = (EditText)findViewById(R.id.search_box);
+                if (editSearch.length() > 0)
+                    setListView(editSearch.getText().toString());
             }
         });
 

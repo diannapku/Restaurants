@@ -63,7 +63,7 @@
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/search_btn_back"
+            android:id="@+id/search_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="31dp"
@@ -71,7 +71,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorOrange"
+            android:background="@drawable/btn_click"
             android:text="搜索"
             android:textColor="@color/white" />
 
