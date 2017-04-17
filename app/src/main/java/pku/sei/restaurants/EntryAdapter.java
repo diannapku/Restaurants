@@ -3,6 +3,7 @@ package pku.sei.restaurants;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
                        Intent intent = packageManager.getLaunchIntentForPackage("com.baidu.lbs.waimai");
                        getContext().startActivity(intent);
                    } catch (Exception e) {
+                       Log.d("sxh", "跳转到百度外卖失败");
                        Toast.makeText(getContext(), "跳转到百度外卖失败", Toast.LENGTH_SHORT).show();
                    }
                }
@@ -133,6 +135,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
                         Intent intent = packageManager.getLaunchIntentForPackage("me.ele");
                         getContext().startActivity(intent);
                     } catch (Exception e) {
+                        Log.d("sxh", "跳转到饿了么失败");
                         Toast.makeText(getContext(), "跳转到饿了么失败", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -168,6 +171,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
                         Intent intent = packageManager.getLaunchIntentForPackage("com.sankuai.meituan.takeoutnew");
                         getContext().startActivity(intent);
                     } catch (Exception e) {
+                        Log.d("sxh", "跳转到美团外卖失败");
                         Toast.makeText(getContext(), "跳转到美团外卖失败", Toast.LENGTH_SHORT).show();
                     }
                 }

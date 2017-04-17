@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         if (location != null) {
             address = getAddress(location);
         } else {
+            Log.d("sxh", "location为空");
+            Toast.makeText(this, "location为空", Toast.LENGTH_SHORT).show();
             address = "wrongAddress";
         }
         TextView address_text = (TextView) findViewById(R.id.address_box);
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             //如果是Network
             locationProvider = LocationManager.NETWORK_PROVIDER;
         } else {
+            Log.d("sxh", "获取位置提供器失败");
             Toast.makeText(this, "获取位置提供器失败", Toast.LENGTH_SHORT).show();
             return null;
         }
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             location = locationManager.getLastKnownLocation(locationProvider);
         } catch (SecurityException e) {
+            Log.d("sxh", "获取经纬度失败");
             Toast.makeText(this, "获取经纬度失败", Toast.LENGTH_SHORT).show();
             return null;
         }
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     private String getAddress(Location location) {
         Geocoder geocoder = new Geocoder(this);
         if (!Geocoder.isPresent()) {
+            Log.d("sxh", "geocoder不存在");
             Toast.makeText(this, "geocoder不存在", Toast.LENGTH_SHORT).show();
             return "wrongAddress";
         }
@@ -125,11 +130,13 @@ public class MainActivity extends AppCompatActivity {
                 stringBuilder.append(address.getThoroughfare()).append("_");//道路
                 stringBuilder.append(address.getFeatureName()).append("_");//周边地址
             } else {
+                Log.d("sxh", "找不到此地址");
                 Toast.makeText(this, "找不到此地址", Toast.LENGTH_LONG).show();
                 return "wrongAdress";
             }
 
         } catch (IOException e) {
+            Log.d("sxh", "获取地址失败");
             Toast.makeText(this, "获取地址失败", Toast.LENGTH_LONG).show();
             return "wrongAdreess";
         }
