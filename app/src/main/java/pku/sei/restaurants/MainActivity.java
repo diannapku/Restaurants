@@ -87,11 +87,10 @@ public class MainActivity extends AppCompatActivity {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //获取所有可用的位置提供器
         List<String> providers = locationManager.getProviders(true);
-        //if (providers.contains(LocationManager.GPS_PROVIDER)) {
-        //    //如果是GPS
-        //    locationProvider = LocationManager.GPS_PROVIDER;
-        //} else
-        if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+        if (providers.contains(LocationManager.GPS_PROVIDER)) {
+            //如果是GPS
+            locationProvider = LocationManager.GPS_PROVIDER;
+        } else if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
             //如果是Network
             locationProvider = LocationManager.NETWORK_PROVIDER;
         } else {
