@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
           处理ListView
          */
         String baidu_str = readStream(getResources().openRawResource(R.raw.baidu_result));
+        String eleme_str = readStream(getResources().openRawResource(R.raw.eleme_result));
+
         //初始化一个Adapter
         Model model = new Model();
         Log.v("zsy","*********");
-        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(baidu_str,"","",search_str));
+        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(baidu_str,baidu_str,eleme_str,search_str));
         //通过ID获取listView
         ListView listView = (ListView) findViewById(R.id.ListViewId);
         //设置listView的Adapter
