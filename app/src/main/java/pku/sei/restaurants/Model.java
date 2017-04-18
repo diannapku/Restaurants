@@ -174,7 +174,6 @@ public class Model {
         setBaiduEntryList(search_str);
         mergeEntries();
 
-
         //测试用，API弄好了以后请删除
         testData();
 
@@ -188,21 +187,6 @@ public class Model {
         setBaiduEntryList(baidu_str, search_str);
         mergeEntries();
 
-//        for (int i = 0; i < baidu.size(); i++) {
-//            Entry test = new Entry();
-//
-//            test.baidu = baidu.get(i);
-//            test.baidu.picture = null;       //图片
-//
-//            test.name = test.baidu.name;
-//            test.hasEleme = false;
-//            test.hasMeituan = false;
-//            test.hasBaidu = true;
-//            test.count = 1;
-//
-//            Log.d("zsy",test.name);
-//            entries.add(test);
-//        }
         return entries;
     }
 
