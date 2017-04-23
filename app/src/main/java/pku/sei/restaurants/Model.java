@@ -8,16 +8,9 @@ import java.util.Comparator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.InputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.StringTokenizer;
-
-import android.content.Context;
 import android.util.Log;
 
 import com.yancloud.android.reflection.YanCloud;
-import com.yancloud.android.reflection.get.YanCloudGet;
 
 /**
  * Created by xiaohan on 2017/4/15.
@@ -108,7 +101,7 @@ public class Model {
         if(rawFromEleme != null && rawFromEleme != "failed") {
             eleme_str = "{\"list\":" + rawFromEleme + "}";
         } else {
-            Log.v("setEntryListException::", "Eleme::" + eleme_str);
+            Log.v("setEntryList::Ele::", eleme_str);
             return;
         }
 
@@ -132,7 +125,7 @@ public class Model {
                 eleme.add(temp);
             }
         } catch (JSONException e) {
-            Log.v("setEntryListException::","ElemeJson::" + e.getMessage());
+            Log.v("setEntryList::EleJson::", e.getMessage());
         }
     }
 
@@ -142,7 +135,7 @@ public class Model {
         if(rawFromMeituan != null && rawFromMeituan != "failed") {
             meituan_str = "{\"list\":" + rawFromMeituan + "}";
         } else {
-            Log.v("setEntryListException::", "Meituan::" + meituan_str);
+            Log.v("setEntryList::Mei::", meituan_str);
             return;
         }
 
@@ -166,18 +159,17 @@ public class Model {
                 meituan.add(temp);
             }
         } catch (JSONException e) {
-            Log.v("setEntryListException::","MeituanJson::" + e.getMessage());
+            Log.v("setEntryList::MeiJson::", e.getMessage());
         }
     }
 
-    }
     private void setBaiduEntryList() {
         String baidu_str = "";
 
         if(rawFromBaidu != null && rawFromBaidu != "failed") {
             baidu_str = "{\"list\":" + rawFromBaidu + "}";
         } else {
-            Log.v("setEntryListException::", "Baidu::" + baidu_str);
+            Log.v("setEntryList::Bai::", baidu_str);
             return;
         }
 
@@ -201,7 +193,7 @@ public class Model {
                 baidu.add(temp);
             }
         } catch (JSONException e) {
-            Log.v("setEntryListException::","BaiduJson::" + e.getMessage());
+            Log.v("setEntryList::BaiJson::", e.getMessage());
         }
 
     }
@@ -357,6 +349,7 @@ public class Model {
 
         return entries;
     }
+}
 
 
 //    public List<Entry> getEntries(String baidu_str, String meituan_str, String eleme_str, String search_str) {
