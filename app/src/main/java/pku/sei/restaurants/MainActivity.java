@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         //初始化一个Adapter
         Model model = new Model();
         Log.v("zsy","*********");
-        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(baidu_str,baidu_str,eleme_str,search_str));
+        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(search_str));
         //通过ID获取listView
         ListView listView = (ListView) findViewById(R.id.ListViewId);
         //设置listView的Adapter
