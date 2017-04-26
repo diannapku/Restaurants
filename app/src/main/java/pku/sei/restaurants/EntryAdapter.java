@@ -43,7 +43,7 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
         }
         dScore /= (double) entry.count;
         TextView score = (TextView) convertView.findViewById(R.id.score);
-        score.setText(Double.toString(dScore));
+        score.setText(String.format("%.1f", dScore));
 
         int nDistance = 0;
         if (entry.hasBaidu) {
@@ -53,7 +53,13 @@ public class EntryAdapter extends ArrayAdapter<Entry> {
             nDistance += Integer.valueOf(entry.eleme.distance);
         }
         if (entry.hasMeituan) {
-            nDistance += Integer.valueOf(entry.meituan.distance);
+            if (entry.meituan.distance.indexOf("k") < 0) {
+                nDistance += Integer.valueOf(entry.meituan.distance);
+            }
+            else {
+                String temp = entry.meituan.distance.replace("k", "");
+                nDistance += Double.valueOf(temp) * 1000;
+            }
         }
         nDistance /= entry.count;
         TextView distance = (TextView) convertView.findViewById(R.id.distance);
