@@ -9,7 +9,7 @@ public class AppConsts {
 
     public static final String LOCAL_IP = "127.0.0.1";
 
-    public static final int START_PORT = 1715;
+    public static final int START_PORT = 1700;
 
     public static final int END_PORT = 1800;
 

@@ -2,9 +2,13 @@ package pku.sei.restaurants;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,39 +37,51 @@ public class Model {
 
     private void getRaw(String search_str) {
 
+        HashMap<String, Integer> aliveApps = Utils.scanPort();
+
         for(String appPackages : AppConsts.APP_PACKAGES) {
             // 查询美团
             int port = 0;
             if(appPackages.equals("com.sankuai.meituan.takeoutnew")) {
 
-                //  修改于2017.4.20, 用反射自动查找端口
-                try {
-                    Class clz = Class.forName("cn.edu.pku.apiminier.debug.TraceStarter");
-                    Object cons = clz.newInstance();
-
-                    Method met = clz.getDeclaredMethod("getPortByPKgName",String.class);
-                    port = (int)met.invoke(cons,appPackages);
-                }catch(Exception e){
-                    Log.d("getPortException::", e.getMessage());
+                if(aliveApps.get(appPackages) != null) {
+                    port = aliveApps.get(appPackages);
+                    Log.d("ZSY", Integer.toString(port));
                 }
 
-                String testSearch = "{\"lat\":\"39986316\",\"lng\":\"116304664\",\"k  eyword\":\" "+ search_str +" \",\"pageNum\":\"0\"}";
+                //  修改于2017.4.20, 用反射自动查找端口
+//                try {
+//                    Class clz = Class.forName("cn.edu.pku.apiminier.debug.TraceStarter");
+//                    Object cons = clz.newInstance();
+//
+//                    Method met = clz.getDeclaredMethod("getPortByPKgName",String.class);
+//                    port = (int)met.invoke(cons,appPackages);
+//                }catch(Exception e){
+//                    Log.d("getPortException::", e.getMessage());
+//                }
+
+                String testSearch = "{\"lat\":\"39986316\",\"lng\":\"116304664\",\"keyword\":\" "+ search_str +" \",\"pageNum\":\"0\"}";
                 YanCloud yanCloud = YanCloud.fromGet(AppConsts.LOCAL_IP, port);
                 rawFromMeituan = yanCloud.get("com.sankuai.meituan.takeoutnew", "getSearch", testSearch);
                 Log.d("美团外卖搜索结果:", rawFromMeituan);
             }
             if(appPackages.equals("me.ele")) {
 
-                //  修改于2017.4.20, 用反射自动查找端口
-                try {
-                    Class clz = Class.forName("cn.edu.pku.apiminier.debug.TraceStarter");
-                    Object cons = clz.newInstance();
-
-                    Method met = clz.getDeclaredMethod("getPortByPKgName",String.class);
-                    port = (int)met.invoke(cons,appPackages);
-                }catch(Exception e){
-                    Log.d("getPortException::", e.getMessage());
+                if(aliveApps.get(appPackages) != null) {
+                    port = aliveApps.get(appPackages);
+                    Log.d("ZSY", Integer.toString(port));
                 }
+
+                //  修改于2017.4.20, 用反射自动查找端口
+//                try {
+//                    Class clz = Class.forName("cn.edu.pku.apiminier.debug.TraceStarter");
+//                    Object cons = clz.newInstance();
+//
+//                    Method met = clz.getDeclaredMethod("getPortByPKgName",String.class);
+//                    port = (int)met.invoke(cons,appPackages);
+//                }catch(Exception e){
+//                    Log.d("getPortException::", e.getMessage());
+//                }
 
                 String json = "{\"latitude\": \"39.966714\",\"longitude\": \"116.306533\",\"keyword\": \"" + search_str + "\"}";
                 YanCloud yanCloud = YanCloud.fromGet(AppConsts.LOCAL_IP, port);
@@ -74,16 +90,20 @@ public class Model {
             }
             if(appPackages.equals("com.baidu.lbs.waimai")) {
 
-                //  修改于2017.4.20, 用反射自动查找端口
-                try {
-                    Class clz = Class.forName("cn.edu.pku.apiminier.debug.TraceStarter");
-                    Object cons = clz.newInstance();
-
-                    Method met = clz.getDeclaredMethod("getPortByPKgName",String.class);
-                    port = (int)met.invoke(cons,appPackages);
-                }catch(Exception e){
-                    Log.d("getPortException::", e.getMessage());
+                if(aliveApps.get(appPackages) != null) {
+                    port = aliveApps.get(appPackages);
+                    Log.d("ZSY", Integer.toString(port));
                 }
+                //  修改于2017.4.20, 用反射自动查找端口
+//                try {
+//                    Class clz = Class.forName("cn.edu.pku.apiminier.debug.TraceStarter");
+//                    Object cons = clz.newInstance();
+//
+//                    Method met = clz.getDeclaredMethod("getPortByPKgName",String.class);
+//                    port = (int)met.invoke(cons,appPackages);
+//                }catch(Exception e){
+//                    Log.d("getPortException::", e.getMessage());
+//                }
 
                 YanCloud yanCloud = YanCloud.fromGet(AppConsts.LOCAL_IP, port);
                 String json = "{\"keyword\": \"" + search_str + "\"}";
@@ -99,7 +119,7 @@ public class Model {
         String eleme_str = ""; //改为str，防止与List<Restaurant>概念冲突
 
         if(rawFromEleme != null && rawFromEleme != "failed") {
-            eleme_str = "{\"list\":" + rawFromEleme + "}";
+            eleme_str = rawFromEleme;
         } else {
             Log.v("setEntryList::Ele::", eleme_str);
             return;
@@ -107,21 +127,20 @@ public class Model {
 
         try{
             JSONObject jsonObject = new JSONObject(eleme_str);
-            JSONArray jsonarray = jsonObject.getJSONArray("list");
+            JSONArray jsonarray = jsonObject.getJSONArray("restaurantInfo");
             int len = jsonarray.length();
             for (int i = 0; i < len; i++) {
-                JSONObject res = jsonarray.getJSONObject(i);
+                JSONObject res = jsonarray.getJSONObject(i).getJSONObject("restaurant");
                 Restaurant temp = new Restaurant();
                 temp.name = res.getString("name");
-                temp.avgDeliveryTime = res.getString("avgDeliveryTime");
+                temp.avgDeliveryTime = Integer.toString(res.getInt("avgDeliveryTime"));
                 temp.distance = Integer.toString(res.getInt("distance"));
-                temp.score = res.getString("score");
+                temp.score = Double.toString(res.getDouble("score"));
                 temp.monthSaleNum = Integer.toString(res.getInt("monthSaleNum"));
-                temp.startPrice = res.getString("startPrice");
-                temp.deliveryPrice = res.getString("deliveryPrice");
-                JSONArray discount = res.getJSONArray("discount");
-                for (int j = 0; j < discount.length(); j++)
-                    temp.discount.add(discount.getJSONObject(j).getString("discountInfo"));
+                temp.startPrice = Double.toString(res.getDouble("startPrice"));
+                temp.deliveryPrice = Double.toString(res.getDouble("deliveryPrice"));
+                JSONObject discount = res.getJSONObject("discount");
+                temp.discount.add(discount.getString("discountInfo"));
                 eleme.add(temp);
             }
         } catch (JSONException e) {
@@ -143,19 +162,26 @@ public class Model {
             JSONObject jsonObject = new JSONObject(meituan_str);
             JSONArray jsonarray = jsonObject.getJSONArray("list");
             int len = jsonarray.length();
+            String regex = "\\d*";
+            Pattern p = Pattern.compile(regex);
+            Matcher m;
             for (int i = 0; i < len; i++) {
                 JSONObject res = jsonarray.getJSONObject(i);
                 Restaurant temp = new Restaurant();
                 temp.name = res.getString("name");
-                temp.avgDeliveryTime = res.getString("avgDeliveryTime");
-                temp.distance = Integer.toString(res.getInt("distance"));
-                temp.score = res.getString("score");
+                temp.distance = res.getString("distance").replace("m", "");
+                temp.score = Double.toString(res.getDouble("score"));
                 temp.monthSaleNum = Integer.toString(res.getInt("monthSaleNum"));
-                temp.startPrice = res.getString("startPrice");
-                temp.deliveryPrice = res.getString("deliveryPrice");
-                JSONArray discount = res.getJSONArray("discount");
-                for (int j = 0; j < discount.length(); j++)
-                    temp.discount.add(discount.getJSONObject(j).getString("discountInfo"));
+                m = p.matcher(res.getString("avgDeliveryTime"));
+                if (m.find())
+                    temp.avgDeliveryTime = m.group();
+                m = p.matcher(res.getString("startPrice"));
+                if (m.find())
+                    temp.startPrice = m.group();
+                m = p.matcher(res.getString("deliveryPrice"));
+                if (m.find())
+                    temp.deliveryPrice = m.group();
+                temp.discount.add(res.getString("discount"));
                 meituan.add(temp);
             }
         } catch (JSONException e) {

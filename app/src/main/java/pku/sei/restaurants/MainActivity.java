@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    Handler h =  new Handler();
 
-    private void setListView(String search_str) {
+    private void setListView(final String search_str) {
         /*
           处理ListView
          */
@@ -75,13 +77,28 @@ public class MainActivity extends AppCompatActivity {
         String eleme_str = readStream(getResources().openRawResource(R.raw.eleme_result));
 
         //初始化一个Adapter
-        Model model = new Model();
         Log.v("zsy","*********");
-        EntryAdapter entryAdapter = new EntryAdapter(this, R.layout.info_card, model.getEntries(search_str));
-        //通过ID获取listView
-        ListView listView = (ListView) findViewById(R.id.ListViewId);
-        //设置listView的Adapter
-        listView.setAdapter(entryAdapter);
+        Runnable r = new Runnable(){
+            @Override
+            public void run() {
+                Model model = new Model();
+                final List<Entry> entries = model.getEntries(search_str);
+                h.post(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        EntryAdapter entryAdapter = new EntryAdapter(MainActivity.this, R.layout.info_card, entries);
+                        //通过ID获取listView
+                        ListView listView = (ListView) findViewById(R.id.ListViewId);
+                        //设置listView的Adapter
+                        listView.setAdapter(entryAdapter);
+                    }
+                });
+            }
+        };
+        new Thread(r).start();
+
+
     }
 
     private Location getLocation() {
