@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
 
+import com.baidu.location.BDLocation;
 import com.yancloud.android.reflection.YanCloud;
 
 /**
@@ -359,7 +360,10 @@ public class Model {
         });
     }
 
-    public List<Entry> getEntries(String search_str) {
+    public List<Entry> getEntries(String search_str, BDLocation location) {
+
+        Log.v("sxh", "纬度" + location.getLatitude());
+        Log.v("sxh", "经度" + location.getLongitude());
 
         getRaw(search_str);
 

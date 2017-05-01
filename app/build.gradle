@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -29,4 +34,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/fastjson-1.2.29.jar')
     compile files('libs/yancloudlib.jar')
+    compile files('libs/BaiduLBS_Android.jar')
 }
