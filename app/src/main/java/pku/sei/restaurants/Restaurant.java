@@ -18,5 +18,4 @@ public class Restaurant {
     public List<String> discount = new ArrayList<>(); //折扣
     public List<String> luckyMoney = new ArrayList<>();;    //红包
     public List<String> coupon = new ArrayList<>();;        //优惠券
-    public String picture = "";       //图片
 }

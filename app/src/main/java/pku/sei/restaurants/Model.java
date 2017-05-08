@@ -32,10 +32,6 @@ public class Model {
     public List<Restaurant> baidu = new ArrayList<>();
     public List<Entry> entries = new ArrayList<>();
 
-    public Model() {
-
-    }
-
     private void getRaw(String search_str) {
 
         HashMap<String, Integer> aliveApps = Utils.scanPort();
@@ -285,12 +281,12 @@ public class Model {
         for (int i = 0; i < baidu.size(); i++) {
             Entry test = new Entry();
             test.baidu = baidu.get(i);
-            test.baidu.picture = null;       //图片
             test.name = test.baidu.name;
             test.hasEleme = false;
             test.hasMeituan = false;
             test.hasBaidu = true;
             test.count = 1;
+            test.weight = baidu.size() - i;
 
             entries.add(test);
         }
@@ -306,6 +302,7 @@ public class Model {
                     temp.eleme = res;
                     temp.hasEleme = true;
                     temp.count ++;
+                    temp.weight += eleme.size() - i;
                     flag = true;
                     entries.set(j, temp);
                     break;
@@ -318,8 +315,8 @@ public class Model {
                 temp.hasBaidu = false;
                 temp.hasMeituan = false;
                 temp.count = 1;
+                temp.weight = eleme.size() - i;
                 temp.eleme = res;
-                temp.eleme.picture = null;
                 entries.add(temp);
             }
         }
@@ -334,6 +331,7 @@ public class Model {
                     temp.meituan = res;
                     temp.hasMeituan = true;
                     temp.count ++;
+                    temp.weight += meituan.size() - i;
                     flag = true;
                     entries.set(j, temp);
                     break;
@@ -346,8 +344,8 @@ public class Model {
                 temp.hasBaidu = false;
                 temp.hasMeituan = true;
                 temp.count = 1;
+                temp.weight = eleme.size() - i;
                 temp.meituan = res;
-                temp.meituan.picture = null;
                 entries.add(temp);
             }
         }
@@ -355,7 +353,7 @@ public class Model {
         Collections.sort(entries, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
-                return ((Entry)o2).count - ((Entry)o1).count;
+                return ((Entry)o2).weight - ((Entry)o1).weight;
             }
         });
     }
