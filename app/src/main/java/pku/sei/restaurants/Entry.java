@@ -15,5 +15,5 @@ public class Entry {
     public Restaurant eleme = null;
     public Restaurant meituan = null;
     public Restaurant baidu = null;
-
+    public String dimension = "";
 }
