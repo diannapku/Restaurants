@@ -286,7 +286,7 @@ public class Model {
             test.hasMeituan = false;
             test.hasBaidu = true;
             test.count = 1;
-            test.weight = baidu.size() - i;
+            test.weight = (double) (baidu.size() - i)/ (double) baidu.size();
 
             entries.add(test);
         }
@@ -302,7 +302,7 @@ public class Model {
                     temp.eleme = res;
                     temp.hasEleme = true;
                     temp.count ++;
-                    temp.weight += eleme.size() - i;
+                    temp.weight += (double) (eleme.size() - i)/ (double) eleme.size();
                     flag = true;
                     entries.set(j, temp);
                     break;
@@ -315,7 +315,7 @@ public class Model {
                 temp.hasBaidu = false;
                 temp.hasMeituan = false;
                 temp.count = 1;
-                temp.weight = eleme.size() - i;
+                temp.weight = (double) (eleme.size() - i)/ (double) eleme.size();
                 temp.eleme = res;
                 entries.add(temp);
             }
@@ -331,7 +331,7 @@ public class Model {
                     temp.meituan = res;
                     temp.hasMeituan = true;
                     temp.count ++;
-                    temp.weight += meituan.size() - i;
+                    temp.weight += (double) (meituan.size() - i)/ (double) meituan.size();
                     flag = true;
                     entries.set(j, temp);
                     break;
@@ -344,7 +344,7 @@ public class Model {
                 temp.hasBaidu = false;
                 temp.hasMeituan = true;
                 temp.count = 1;
-                temp.weight = eleme.size() - i;
+                temp.weight = (double) (meituan.size() - i)/ (double) meituan.size();
                 temp.meituan = res;
                 entries.add(temp);
             }
@@ -353,7 +353,10 @@ public class Model {
         Collections.sort(entries, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
-                return ((Entry)o2).weight - ((Entry)o1).weight;
+                if (((Entry)o2).weight > ((Entry)o1).weight) return 1;
+                else if (((Entry)o2).weight < ((Entry)o1).weight) return -1;
+                else return 0;
+                //return ((Entry)o2).weight - ((Entry)o1).weight;
             }
         });
     }
