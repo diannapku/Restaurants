@@ -26,7 +26,13 @@
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
 
+    <!-- 麦克风录音权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
+    <!-- 读取写入系统设置-->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 修改全局声音设置-->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
         android:allowBackup="true"
@@ -46,7 +52,8 @@
         </service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="bIL1edUl7taVDwMPgFPqMhCme2nxppns" />
+            android:value="3fx3EZ9raFGLGqoRWSMZOEOU75NhBvRS" />
+
     </application>
 
 </manifest>
