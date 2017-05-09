@@ -21,6 +21,20 @@ public class AppConsts {
             "com.sankuai.meituan.takeoutnew", "me.ele", "com.baidu.lbs.waimai"
     };
 
+    public static final String WEIGHT = "weight";
+
+    public static final String DISTANCE = "distance";
+
+    public static final String SCORE = "score";
+
+    public static final String ORDERS = "orders";
+
+    public static final String DTIME = "delivery time";
+
+    public static final String[] DIMENSIONS = new String[] {
+            "weight", "distance", "score", "orders", "delivery time"
+    };
+
 //    public static final HashMap<String, String> APP_THREAD = new HashMap<>() {
 //        {
 //            put("com.sankuai.meituan.takeoutnew", "MeiTuanThread");
