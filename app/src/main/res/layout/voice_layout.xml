@@ -7,74 +7,12 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="7"
         android:orientation="horizontal">
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32dp"
-            android:textColor="@color/white"
-            android:layout_marginBottom="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:text="你可以这样说:"/>
-
-        <TextView
-            android:id="@+id/example1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_gravity="center_horizontal"
-            android:text="必胜客"/>
-
-        <TextView
-            android:id="@+id/example2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_gravity="center_horizontal"
-            android:text="黄焖鸡米饭"/>
-
-        <TextView
-            android:id="@+id/example3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_gravity="center_horizontal"
-            android:text="我想喝奶茶"/>
-
-        <TextView
-            android:id="@+id/example4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_gravity="center_horizontal"
-            android:text="北京大学周边"/>
-
+        
     </LinearLayout>
 
     <LinearLayout
