@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class Recommender {
     private Map<String, Entry> recommend_map;
+    private Map<String, Integer> flag;
 
     public void listRecommendation(List<Entry> entries) {
         recommend_map.put(AppConsts.WEIGHT, entries.get(0));
@@ -43,7 +44,9 @@ public class Recommender {
                 recommend_map.put(AppConsts.SCORE, entry);
             }
         }
-
+        for (int i = 0; i < AppConsts.DIMENSIONS.length; i++) {
+            flag.put(AppConsts.DIMENSIONS[i], 0);
+        }
     }
 
     private double getAvgScore(Entry entry) {
@@ -110,19 +113,34 @@ public class Recommender {
         return minTime;
     }
 
-    public Entry startRecommendation() {
-        int len = recommend_map.size();
+    // 换一家（换一个维度推荐）
+    public Entry switchRecommendation() {
+        int len = AppConsts.DIMENSIONS.length;
         Random ran = new Random();
         while (len > 0) {
-            int index = ran.nextInt(len);
+            int index = ran.nextInt(AppConsts.DIMENSIONS.length);
             String dimension = AppConsts.DIMENSIONS[index];
-            if (recommend_map.get(dimension) != null) {
+            if (flag.get(dimension) == 0) {
                 Entry result = recommend_map.get(dimension);
                 result.dimension = dimension;
-                recommend_map.remove(dimension);
+                flag.put(dimension, 1);
                 return result;
             }
+            len --;
         }
         return null;
+    }
+
+    public void showRecommendation(Entry entry) {
+
+    }
+
+    // 第一次推荐，将燕云获取到的entry列表输入，按综合排序推荐
+    public Entry firstRecommendation(List<Entry> entries) {
+        listRecommendation(entries);
+        Entry result = recommend_map.get(AppConsts.WEIGHT);
+        result.dimension = AppConsts.WEIGHT;
+        flag.put(AppConsts.WEIGHT, 1);
+        return result;
     }
 }

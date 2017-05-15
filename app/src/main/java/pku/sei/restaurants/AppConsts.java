@@ -21,18 +21,18 @@ public class AppConsts {
             "com.sankuai.meituan.takeoutnew", "me.ele", "com.baidu.lbs.waimai"
     };
 
-    public static final String WEIGHT = "weight";
+    public static final String WEIGHT = "综合排名最高";
 
-    public static final String DISTANCE = "distance";
+    public static final String DISTANCE = "距离最近";
 
-    public static final String SCORE = "score";
+    public static final String SCORE = "评分最高";
 
-    public static final String ORDERS = "orders";
+    public static final String ORDERS = "订单量最大";
 
-    public static final String DTIME = "delivery time";
+    public static final String DTIME = "送餐最快";
 
     public static final String[] DIMENSIONS = new String[] {
-            "weight", "distance", "score", "orders", "delivery time"
+            "综合排名最高", "距离最近", "评分最高", "订单量最大", "送餐最快"
     };
 
 //    public static final HashMap<String, String> APP_THREAD = new HashMap<>() {
