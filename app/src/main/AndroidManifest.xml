@@ -52,7 +52,10 @@
         </service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="3fx3EZ9raFGLGqoRWSMZOEOU75NhBvRS" />
+
+            android:value="bIL1edUl7taVDwMPgFPqMhCme2nxppns" />
+        <!-- xiaohan's value "bIL1edUl7taVDwMPgFPqMhCme2nxppns" -->
+        <!-- yunqi's value "3fx3EZ9raFGLGqoRWSMZOEOU75NhBvRS" -->
 
     </application>
 

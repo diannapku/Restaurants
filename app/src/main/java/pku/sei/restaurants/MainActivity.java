@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,58 +39,23 @@ public class MainActivity extends AppCompatActivity {
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
     private BDLocation location = null;
+
     private List<Entry> entries = null;
     private EditText editSearch;
     private Button search;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // 文字版UI
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
         // 语音版UI
-        //setContentView();
+        setContentView(R.layout.voice_layout);
 
-
-        // 获取地址
-
-        // 文字版UI
-        TextView address_text = (TextView) findViewById(R.id.address_box);
-        address_text.setText("waiting");
-
-        // 语音版UI
-        context = getApplicationContext();
-        mNlsRequest = initNlsRequest();
-        String appkey = "nls-service"; //请设置简介页面的Appkey
-        mNlsRequest.setApp_key(appkey);    //appkey列表中获取
-        mNlsRequest.setAsr_sc("opu");      //设置语音格式
-        /*热词参数*/
-        mNlsRequest.setAsrUserId("userid");
-        mNlsRequest.setAsrVocabularyId("vocabid");
-        /*热词参数*/
-        NlsClient.openLog(true);
-        NlsClient.configure(getApplicationContext()); //全局配置
-        mNlsClient = NlsClient.newInstance(this, mRecognizeListener, mStageListener,mNlsRequest);                          //实例化NlsClient
-        mNlsClient.setMaxRecordTime(60000);  //设置最长语音
-        mNlsClient.setMaxStallTime(1000);    //设置最短语音
-        mNlsClient.setMinRecordTime(500);    //设置最大录音中断时间
-        mNlsClient.setRecordAutoStop(false);  //设置VAD
-        mNlsClient.setMinVoiceValueInterval(200); //设置音量回调时长
-
-        //语音合成
-        mNlsRequest_fh = initNlsRequest();
-        //String appkey = "nls-service";     //请设置简介页面的Appkey
-        mNlsRequest_fh.setApp_key(appkey);    //appkey请从 简介页面的appkey列表中获取
-        mNlsRequest_fh.initTts();               //初始化tts请求
-
-        mNlsClient_fh = NlsClient.newInstance(this, mRecognizeListener_fh, null ,mNlsRequest_fh);//实例化NlsClient
-
-
-        mNlsRequest_fh.setTtsEncodeType("pcm"); //返回语音数据格式，支持pcm,wav.alaw
-        mNlsRequest_fh.setTtsVolume(50);   //音量大小默认50，阈值0-100
-        mNlsRequest_fh.setTtsSpeechRate(0);//语速，阈值-500~500
-        mNlsRequest_fh.authorize("LTAIdi22P8quaCEF", "Zau1ZNsC4YyEKhBAzI7dot1STrHpIe");       //请替换为用户申请到的数加认证key和密钥
 
         // 获取地址开始
         mLocationClient = new LocationClient(getApplicationContext());
@@ -100,52 +66,112 @@ public class MainActivity extends AppCompatActivity {
         // 获取地址结束，地址在location里面。具体获取时间未知，所以使用Location之前需要判断是不是null。
 
 
-        // 搜索栏
         // 文字版UI
-        search = (Button)findViewById(R.id.search_btn);
-        editSearch = (EditText)findViewById(R.id.search_box);
-        editSearch.setInputType(InputType.TYPE_NULL);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //EditText editSearch = (EditText)findViewById(R.id.search_box);
-                if (editSearch.length() > 0)
-                    setListView(editSearch.getText().toString());
-            }
-        });
+        //TextView address_text = (TextView) findViewById(R.id.address_box);
+        //address_text.setText("waiting");
 
         // 语音版UI
-        editSearch.setOnClickListener(new View.OnClickListener() {
+        context = getApplicationContext();
+        mNlsRequest = initNlsRequest();
+        String appkey = "nls-service";     //请设置简介页面的Appkey
+        mNlsRequest.setApp_key(appkey);    //appkey列表中获取
+        mNlsRequest.setAsr_sc("opu");      //设置语音格式
+        /*热词参数*/
+        mNlsRequest.setAsrUserId("userid");
+        mNlsRequest.setAsrVocabularyId("vocabid");
+        mNlsRequest.authorize("LTAIdi22P8quaCEF", "Zau1ZNsC4YyEKhBAzI7dot1STrHpIe"); //请替换为用户申请到的Access Key ID和Access Key Secret
+        /*热词参数*/
+        NlsClient.openLog(true);
+        NlsClient.configure(getApplicationContext()); //全局配置
+        mNlsClient = NlsClient.newInstance(this, mRecognizeListener, mStageListener, mNlsRequest);  //实例化NlsClient
+        mNlsClient.setMaxRecordTime(60000);       //设置最长语音
+        mNlsClient.setMaxStallTime(1000);         //设置最短语音
+        mNlsClient.setMinRecordTime(500);         //设置最大录音中断时间
+        mNlsClient.setRecordAutoStop(false);      //设置VAD
+        mNlsClient.setMinVoiceValueInterval(200); //设置音量回调时长
+
+
+        //语音合成
+        mNlsRequest_fh = initNlsRequest();
+        //String appkey = "nls-service";     //请设置简介页面的Appkey
+        mNlsRequest_fh.setApp_key(appkey);      //appkey请从 简介页面的appkey列表中获取
+        mNlsRequest_fh.initTts();               //初始化tts请求
+        mNlsClient_fh = NlsClient.newInstance(this, mRecognizeListener_fh, null ,mNlsRequest_fh);//实例化NlsClient
+        mNlsRequest_fh.setTtsEncodeType("pcm"); //返回语音数据格式，支持pcm,wav.alaw
+        mNlsRequest_fh.setTtsVolume(50);        //音量大小默认50，阈值0-100
+        mNlsRequest_fh.setTtsSpeechRate(0);     //语速，阈值-500~500
+        mNlsRequest_fh.authorize("LTAIdi22P8quaCEF", "Zau1ZNsC4YyEKhBAzI7dot1STrHpIe");       //请替换为用户申请到的数加认证key和密钥
+
+        isSpeaking = true;
+        mNlsClient_fh.PostTtsRequest("您可以这样说。肯德基。黄焖鸡米饭。奶茶。");
+
+        ImageView voice_btn = (ImageView) findViewById(R.id.voice_btn);
+        voice_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public  void onClick(View v) {
+                TextView listening = (TextView) findViewById(R.id.example3);
+                listening.setText("正在录音……");
                 isRecognizing = true;
                 Log.v("hyq:", "正在录音，请稍候！");
-                mNlsRequest.authorize("LTAIdi22P8quaCEF", "Zau1ZNsC4YyEKhBAzI7dot1STrHpIe"); //请替换为用户申请到的Access Key ID和Access Key Secret
-                mNlsClient.start();
-                Log.v("hyq:","录音中。。。");
 
+
+                mNlsClient.start();
                 long time = System.currentTimeMillis();
                 while(true) {
-                    if(System.currentTimeMillis() - time > 3000)
-                        break;
+                    if(System.currentTimeMillis() - time > 3000) break;
                 }
-
                 isRecognizing = false;
-                Log.v("hyq:", "");
                 mNlsClient.stop();
-                Log.v("hyq:", "识别 结束");
+                Log.v("hyq:", "识别结束");
             }
         });
+
+
+        // 搜索栏
+        // 文字版UI
+//        search = (Button)findViewById(R.id.search_btn);
+//        editSearch = (EditText)findViewById(R.id.search_box);
+//        editSearch.setInputType(InputType.TYPE_NULL);
+//        search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (editSearch.length() > 0)
+//                    setListView(editSearch.getText().toString());
+//            }
+//        });
+//
+//        // 语音版UI
+//        editSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                isRecognizing = true;
+//                Log.v("hyq:", "正在录音，请稍候！");
+//                mNlsClient.start();
+//                Log.v("hyq:","录音中。。。");
+//
+//                long time = System.currentTimeMillis();
+//                while(true) {
+//                    if(System.currentTimeMillis() - time > 3000)
+//                        break;
+//                }
+//
+//                isRecognizing = false;
+//                Log.v("hyq:", "");
+//                mNlsClient.stop();
+//                Log.v("hyq:", "识别 结束");
+//            }
+//        });
 
 
     }
 
     //语音识别
     private boolean isRecognizing = false;
+    private boolean isSpeaking = false;
     private NlsClient mNlsClient;
     private NlsRequest mNlsRequest;
     private Context context;
-    private String recognizedString;
+    private String recognizedString = null;
 
 
     private NlsRequest initNlsRequest(){
@@ -159,24 +185,49 @@ public class MainActivity extends AppCompatActivity {
         public void onRecognizingResult(int status, NlsListener.RecognizedResult result) {
             switch (status) {
                 case NlsClient.ErrorCode.SUCCESS:
+                    entries = null;
                     Log.i("asr", "[demo]  callback onRecognizResult " + result.asr_out);
                     try {
                         org.json.JSONObject jsonObject = new org.json.JSONObject(result.asr_out);
                         recognizedString = jsonObject.getString("result");
-                        editSearch.setText(recognizedString);
+                        //editSearch.setText(recognizedString);
                     } catch (org.json.JSONException e) {
                         Log.v("hyq:", "json error " + e.getMessage());
                     }
                     Log.v("hyq:", result.asr_out);
                     //mFullEdit.setText(result.asr_out);
 
+                    if (recognizedString != null) {
+                        TextView search = (TextView) findViewById(R.id.hint);
+                        search.setText("搜索：" + recognizedString);
+                        TextView eg1 = (TextView) findViewById(R.id.example1);
+                        eg1.setText("");
+                        TextView eg2 = (TextView) findViewById(R.id.example2);
+                        eg2.setText("");
+                        TextView eg3 = (TextView) findViewById(R.id.example3);
+                        eg3.setText("");
 
-                    editSearch.setSelection(editSearch.getText().length());
-                    if (editSearch.length() > 0)
-                        setListView(editSearch.getText().toString());
+                        Runnable r = new Runnable(){
+                            @Override
+                            public void run() {
+                                Model model = new Model();
+                                entries = model.getEntries(recognizedString, location);
+                            }
+                        };
+                        new Thread(r).start();
+                    }
 
-                    mNlsClient_fh.PostTtsRequest("为您推荐"); //用户输入文本
-                    audioTrack.play();
+                    //editSearch.setSelection(editSearch.getText().length());
+                    //if (editSearch.length() > 0)
+                    //    setListView(editSearch.getText().toString());
+
+
+                    while (entries == null) { }
+                    TextView eg1 = (TextView) findViewById(R.id.example1);
+                    eg1.setText("综合排序最高");
+                    TextView eg2 = (TextView) findViewById(R.id.example2);
+                    eg2.setText(entries.get(0).name);
+                    mNlsClient_fh.PostTtsRequest("为您推荐综合排序最高的" + entries.get(0).name); //用户输入文本
 
                     break;
                 case NlsClient.ErrorCode.RECOGNIZE_ERROR:
@@ -260,6 +311,7 @@ public class MainActivity extends AppCompatActivity {
     int iMinBufSize = AudioTrack.getMinBufferSize(8000,
             AudioFormat.CHANNEL_CONFIGURATION_STEREO,
             AudioFormat.ENCODING_PCM_16BIT);
+
     AudioTrack audioTrack=new AudioTrack(AudioManager.STREAM_MUSIC, 8000,
             AudioFormat.CHANNEL_CONFIGURATION_STEREO, AudioFormat.ENCODING_PCM_16BIT,
             iMinBufSize, AudioTrack.MODE_STREAM) ; //使用audioTrack播放返回的pcm数据
@@ -268,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
 
     Handler h =  new Handler();
     private void setListView(final String search_str) {
-
         Log.v("zsy","*********");
         Runnable r = new Runnable(){
             @Override
