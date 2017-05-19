@@ -1,5 +1,6 @@
 package pku.sei.restaurants;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -9,8 +10,8 @@ import java.util.Random;
  */
 
 public class Recommender {
-    private Map<String, Entry> recommend_map;
-    private Map<String, Integer> flag;
+    private Map<String, Entry> recommend_map = new HashMap<>();
+    private Map<String, Integer> flag = new HashMap<>();
 
     public void listRecommendation(List<Entry> entries) {
         recommend_map.put(AppConsts.WEIGHT, entries.get(0));

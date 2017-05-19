@@ -13,12 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.BooleanCodec;
 import com.alibaba.idst.nls.NlsClient;
 import com.alibaba.idst.nls.NlsListener;
 import com.alibaba.idst.nls.StageListener;
@@ -39,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
     private BDLocation location = null;
-
     private List<Entry> entries = null;
     private EditText editSearch;
     private Button search;
+    private Boolean finishSearch = false;
+    Recommender recommender = new Recommender();
+
 
 
 
@@ -54,7 +58,15 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
 
         // 语音版UI
-        setContentView(R.layout.voice_layout);
+        setContentView(R.layout.voice_main);
+        //LinearLayout layout = (LinearLayout) findViewById(R.id.container);
+        //setContentView(R.layout.voice_main);
+        //TextView hhhh = (TextView) findViewById(R.id.hint);
+        //layout.addView(hhhh);
+
+
+
+
 
 
         // 获取地址开始
@@ -70,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         //TextView address_text = (TextView) findViewById(R.id.address_box);
         //address_text.setText("waiting");
 
-        // 语音版UI
+        // 语音初始化开始
         context = getApplicationContext();
         mNlsRequest = initNlsRequest();
         String appkey = "nls-service";     //请设置简介页面的Appkey
@@ -90,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         mNlsClient.setRecordAutoStop(false);      //设置VAD
         mNlsClient.setMinVoiceValueInterval(200); //设置音量回调时长
 
-
         //语音合成
         mNlsRequest_fh = initNlsRequest();
         //String appkey = "nls-service";     //请设置简介页面的Appkey
@@ -101,26 +112,21 @@ public class MainActivity extends AppCompatActivity {
         mNlsRequest_fh.setTtsVolume(50);        //音量大小默认50，阈值0-100
         mNlsRequest_fh.setTtsSpeechRate(0);     //语速，阈值-500~500
         mNlsRequest_fh.authorize("LTAIdi22P8quaCEF", "Zau1ZNsC4YyEKhBAzI7dot1STrHpIe");       //请替换为用户申请到的数加认证key和密钥
+        // 语音初始化结束
 
-        isSpeaking = true;
-        mNlsClient_fh.PostTtsRequest("您可以这样说。肯德基。黄焖鸡米饭。奶茶。");
+        mNlsClient_fh.PostTtsRequest("您可以这样说。必胜客。黄焖鸡米饭。");
 
         ImageView voice_btn = (ImageView) findViewById(R.id.voice_btn);
         voice_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public  void onClick(View v) {
-                TextView listening = (TextView) findViewById(R.id.example3);
-                listening.setText("正在录音……");
-                isRecognizing = true;
                 Log.v("hyq:", "正在录音，请稍候！");
-
 
                 mNlsClient.start();
                 long time = System.currentTimeMillis();
                 while(true) {
                     if(System.currentTimeMillis() - time > 3000) break;
                 }
-                isRecognizing = false;
                 mNlsClient.stop();
                 Log.v("hyq:", "识别结束");
             }
@@ -166,8 +172,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //语音识别
-    private boolean isRecognizing = false;
-    private boolean isSpeaking = false;
     private NlsClient mNlsClient;
     private NlsRequest mNlsRequest;
     private Context context;
@@ -197,15 +201,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.v("hyq:", result.asr_out);
                     //mFullEdit.setText(result.asr_out);
 
-                    if (recognizedString != null) {
-                        TextView search = (TextView) findViewById(R.id.hint);
-                        search.setText("搜索：" + recognizedString);
-                        TextView eg1 = (TextView) findViewById(R.id.example1);
-                        eg1.setText("");
-                        TextView eg2 = (TextView) findViewById(R.id.example2);
-                        eg2.setText("");
-                        TextView eg3 = (TextView) findViewById(R.id.example3);
-                        eg3.setText("");
+                    if (recognizedString != null && finishSearch == false) {
+                        Log.v("hyq", "search:" + recognizedString);
 
                         Runnable r = new Runnable(){
                             @Override
@@ -215,6 +212,71 @@ public class MainActivity extends AppCompatActivity {
                             }
                         };
                         new Thread(r).start();
+
+                        setContentView(R.layout.voice_result);
+
+                        ImageView voice_btn = (ImageView) findViewById(R.id.voice_btn);
+                        voice_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public  void onClick(View v) {
+                                Log.v("hyq:", "正在录音，请稍候！");
+
+                                mNlsClient.start();
+                                long time = System.currentTimeMillis();
+                                while(true) {
+                                    if(System.currentTimeMillis() - time > 3000) break;
+                                }
+                                mNlsClient.stop();
+                                Log.v("hyq:", "识别结束");
+                            }
+                        });
+
+                        while (entries == null) { }
+                        TextView num = (TextView) findViewById(R.id.number);
+                        num.setText(String.valueOf(entries.size()));
+
+                        Entry entry = recommender.firstRecommendation(entries);
+                        //Entry entry = entries.get(0);
+                        mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension + entry.name);
+                        TextView dimension = (TextView) findViewById(R.id.dimension);
+                        dimension.setText(entry.dimension);
+                        TextView restaurant_name = (TextView) findViewById(R.id.restaurant_name);
+                        restaurant_name.setText(entry.name);
+                        finishSearch = true;
+
+                    } else if (recognizedString != null && finishSearch == true) {
+                        if (recognizedString.contains("换")) {
+                            Entry entry = recommender.switchRecommendation();
+                            if (entry == null) {
+                                entries = null;
+                                finishSearch = false;
+                                setContentView(R.layout.voice_main);
+                                ImageView voice_btn = (ImageView) findViewById(R.id.voice_btn);
+                                voice_btn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public  void onClick(View v) {
+                                        Log.v("hyq:", "正在录音，请稍候！");
+
+                                        mNlsClient.start();
+                                        long time = System.currentTimeMillis();
+                                        while(true) {
+                                            if(System.currentTimeMillis() - time > 3000) break;
+                                        }
+                                        mNlsClient.stop();
+                                        Log.v("hyq:", "识别结束");
+                                    }
+                                });
+                            } else {
+                                mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension + "。" + entry.name);
+                                TextView dimension = (TextView) findViewById(R.id.dimension);
+                                dimension.setText(entry.dimension);
+                                TextView restaurant_name = (TextView) findViewById(R.id.restaurant_name);
+                                restaurant_name.setText(entry.name);
+                            }
+                        } else if (recognizedString.contains("确认")) {
+                            mNlsClient_fh.PostTtsRequest("已下单");
+
+                        }
                     }
 
                     //editSearch.setSelection(editSearch.getText().length());
@@ -222,12 +284,7 @@ public class MainActivity extends AppCompatActivity {
                     //    setListView(editSearch.getText().toString());
 
 
-                    while (entries == null) { }
-                    TextView eg1 = (TextView) findViewById(R.id.example1);
-                    eg1.setText("综合排序最高");
-                    TextView eg2 = (TextView) findViewById(R.id.example2);
-                    eg2.setText(entries.get(0).name);
-                    mNlsClient_fh.PostTtsRequest("为您推荐综合排序最高的" + entries.get(0).name); //用户输入文本
+
 
                     break;
                 case NlsClient.ErrorCode.RECOGNIZE_ERROR:
@@ -243,7 +300,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.v("hyq:", "nothing");
                     break;
             }
-            isRecognizing = false;
         }
     } ;
 
