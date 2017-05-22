@@ -19,15 +19,6 @@
             android:layout_weight="2"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="32dp"
-                android:textColor="@color/white"
-                android:layout_marginBottom="48dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -57,7 +48,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_gravity="center_horizontal"
-                android:text="必胜客"/>
+                android:text="小炒肉"/>
 
             <TextView
                 android:id="@+id/example2"
@@ -79,7 +70,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_gravity="center_horizontal"
-                android:text="奶茶"/>
+                android:text="想喝奶茶"/>
 
             <TextView
                 android:id="@+id/example4"
@@ -109,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:clickable="true"
-            app:srcCompat="@drawable/microphone" />
+            app:srcCompat= "@drawable/microphone" />
 
     </LinearLayout>
 </LinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Restaurants</string>
+    <string name="app_name">美食桌巾</string>
     <drawable name="clr_normal">#FD713F</drawable>
     <drawable name="clr_pressed">#FE5012</drawable>
 </resources>

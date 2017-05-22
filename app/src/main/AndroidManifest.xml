@@ -53,9 +53,10 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
 
-            android:value="bIL1edUl7taVDwMPgFPqMhCme2nxppns" />
+            android:value="0rj83GEWFS3OYj8uMWzzRI1z54IXn4ms" />
         <!-- xiaohan's value "bIL1edUl7taVDwMPgFPqMhCme2nxppns" -->
         <!-- yunqi's value "3fx3EZ9raFGLGqoRWSMZOEOU75NhBvRS" -->
+        <!-- shuyu's value "0rj83GEWFS3OYj8uMWzzRI1z54IXn4ms" -->
 
     </application>
 

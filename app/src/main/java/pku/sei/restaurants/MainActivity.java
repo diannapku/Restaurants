@@ -4,23 +4,17 @@ import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.BooleanCodec;
 import com.alibaba.idst.nls.NlsClient;
 import com.alibaba.idst.nls.NlsListener;
 import com.alibaba.idst.nls.StageListener;
@@ -114,9 +108,10 @@ public class MainActivity extends AppCompatActivity {
         mNlsRequest_fh.authorize("LTAIdi22P8quaCEF", "Zau1ZNsC4YyEKhBAzI7dot1STrHpIe");       //请替换为用户申请到的数加认证key和密钥
         // 语音初始化结束
 
-        mNlsClient_fh.PostTtsRequest("您可以这样说。必胜客。黄焖鸡米饭。");
+        mNlsClient_fh.PostTtsRequest("您要吃点什么嘛？");
 
         ImageView voice_btn = (ImageView) findViewById(R.id.voice_btn);
+//        ImageButton voice_btn = (ImageButton) findViewById(R.id.voice_btn);
         voice_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public  void onClick(View v) {
@@ -176,7 +171,8 @@ public class MainActivity extends AppCompatActivity {
     private NlsRequest mNlsRequest;
     private Context context;
     private String recognizedString = null;
-
+    private String searchString = null;
+    private Entry temp;
 
     private NlsRequest initNlsRequest(){
         NlsRequestProto proto = new NlsRequestProto(context);
@@ -209,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 Model model = new Model();
                                 entries = model.getEntries(recognizedString, location);
+                                searchString = recognizedString;
                             }
                         };
                         new Thread(r).start();
@@ -216,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
                         setContentView(R.layout.voice_result);
 
                         ImageView voice_btn = (ImageView) findViewById(R.id.voice_btn);
+//                        ImageButton voice_btn = (ImageButton) findViewById(R.id.voice_btn);
                         voice_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public  void onClick(View v) {
@@ -236,8 +234,9 @@ public class MainActivity extends AppCompatActivity {
                         num.setText(String.valueOf(entries.size()));
 
                         Entry entry = recommender.firstRecommendation(entries);
+                        temp = entry;
                         //Entry entry = entries.get(0);
-                        mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension + entry.name);
+                        mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension  + "的外卖商家。" + entry.name);
                         TextView dimension = (TextView) findViewById(R.id.dimension);
                         dimension.setText(entry.dimension);
                         TextView restaurant_name = (TextView) findViewById(R.id.restaurant_name);
@@ -247,11 +246,13 @@ public class MainActivity extends AppCompatActivity {
                     } else if (recognizedString != null && finishSearch == true) {
                         if (recognizedString.contains("换")) {
                             Entry entry = recommender.switchRecommendation();
+                            temp = entry;
                             if (entry == null) {
                                 entries = null;
                                 finishSearch = false;
                                 setContentView(R.layout.voice_main);
                                 ImageView voice_btn = (ImageView) findViewById(R.id.voice_btn);
+//                                ImageButton voice_btn = (ImageButton) findViewById(R.id.voice_btn);
                                 voice_btn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public  void onClick(View v) {
@@ -267,15 +268,19 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension + "。" + entry.name);
+                                mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension + "的外卖商家。" + entry.name);
                                 TextView dimension = (TextView) findViewById(R.id.dimension);
                                 dimension.setText(entry.dimension);
                                 TextView restaurant_name = (TextView) findViewById(R.id.restaurant_name);
                                 restaurant_name.setText(entry.name);
                             }
-                        } else if (recognizedString.contains("确认")) {
-                            mNlsClient_fh.PostTtsRequest("已下单");
-
+                        } else if (recognizedString.contains("确认") || recognizedString.contains("点") || recognizedString.contains("不错")) {
+                            setContentView(R.layout.voice_xiadan);
+                            TextView restaurant_name = (TextView) findViewById(R.id.restaurant_name);
+                            restaurant_name.setText(temp.name);
+//                            TextView dish = (TextView) findViewById(R.id.dish);
+//                            dish.setText(searchString);
+                            mNlsClient_fh.PostTtsRequest("已为您在美团外卖 下单 一份 "+searchString+"。祝您用餐愉快！");
                         }
                     }
 
