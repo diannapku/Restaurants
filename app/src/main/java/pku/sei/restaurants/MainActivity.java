@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 DataBase.entries = null;
                 recognizedString = null;
                 DataBase.searchString = null;
+                DataBase.count = 0;
                 Speech.mainNlsClient.start();
                 long time = System.currentTimeMillis();
                 while(true) {

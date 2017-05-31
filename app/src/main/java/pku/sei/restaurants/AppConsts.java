@@ -21,10 +21,6 @@ public class AppConsts {
             "com.sankuai.meituan.takeoutnew", "me.ele", "com.baidu.lbs.waimai"
     };
 
-    public static final String[] APP_Music = new String[] {
-            "com.sankuai.meituan.takeoutnew", "me.ele", "com.baidu.lbs.waimai"
-    };
-
     public static final String WEIGHT = "综合排名最高";
 
     public static final String DISTANCE = "距离最近";
