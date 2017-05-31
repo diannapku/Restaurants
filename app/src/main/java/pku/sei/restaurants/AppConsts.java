@@ -32,7 +32,9 @@ public class AppConsts {
     public static final String DTIME = "送餐最快";
 
     public static final String[] DIMENSIONS = new String[] {
-            "综合排名最高", "距离最近", "评分最高", "订单量最大", "送餐最快", "口碑最好", "最合我口味", "我最常买", "", "", "", "", "", ""
+            "综合排名最高", "距离最近", "评分最高", "订单量最大", "送餐最快",
+            "口碑最好", "最合我口味", "我最常买", "预计最快到达", "最热门",
+            "", "", "", "", ""
     };
 
 //    public static final HashMap<String, String> APP_THREAD = new HashMap<>() {
