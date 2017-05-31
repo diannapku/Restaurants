@@ -125,10 +125,12 @@ public class Recommender {
                 Entry result = recommend_map.get(dimension);
                 result.dimension = dimension;
                 flag.put(dimension, 1);
+                DataBase.result_entry = result;
                 return result;
             }
             len --;
         }
+        DataBase.result_entry = null;
         return null;
     }
 
@@ -142,6 +144,7 @@ public class Recommender {
         Entry result = recommend_map.get(AppConsts.WEIGHT);
         result.dimension = AppConsts.WEIGHT;
         flag.put(AppConsts.WEIGHT, 1);
+        DataBase.result_entry = result;
         return result;
     }
 }

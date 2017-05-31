@@ -19,19 +19,19 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <!-- 这个权限用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
-    <!-- 这个权限用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <!-- 麦克风录音权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <!-- 读取写入系统设置-->
+    <!-- 读取写入系统设置 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <!-- 修改全局声音设置-->
+    <!-- 修改全局声音设置 -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
@@ -48,16 +48,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-
-            android:value="0rj83GEWFS3OYj8uMWzzRI1z54IXn4ms" />
+            android:value="bIL1edUl7taVDwMPgFPqMhCme2nxppns" />
         <!-- xiaohan's value "bIL1edUl7taVDwMPgFPqMhCme2nxppns" -->
         <!-- yunqi's value "3fx3EZ9raFGLGqoRWSMZOEOU75NhBvRS" -->
         <!-- shuyu's value "0rj83GEWFS3OYj8uMWzzRI1z54IXn4ms" -->
 
+        <activity android:name=".ChangeActivity"></activity>
     </application>
 
 </manifest>
