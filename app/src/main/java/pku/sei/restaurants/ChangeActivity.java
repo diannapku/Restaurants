@@ -21,7 +21,7 @@ public class ChangeActivity extends AppCompatActivity {
         TextView num = (TextView) findViewById(R.id.number);
         num.setText(String.valueOf(DataBase.entries.size()));
 
-        Entry entry = recommender.firstRecommendation(DataBase.entries);
+        Entry entry = recommender.firstRecommendation(this, DataBase.entries);
         Speech.mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension + "的外卖商家。" + entry.name);
         TextView dimension = (TextView) findViewById(R.id.dimension);
         dimension.setText(entry.dimension);
@@ -51,6 +51,7 @@ public class ChangeActivity extends AppCompatActivity {
 
     private String recognizedString = null;
     private Recommender recommender = new Recommender();
+    Entry entry;
 
     public NlsListener changeRecognizeListener = new NlsListener() {
         @Override
@@ -68,7 +69,7 @@ public class ChangeActivity extends AppCompatActivity {
 
                     if (recognizedString != null) {
                         if (recognizedString.contains("换")) {
-                            Entry entry = recommender.switchRecommendation();
+                            entry = recommender.switchRecommendation();
                             if (entry == null) {
                                 finish();
                             } else {
@@ -79,6 +80,7 @@ public class ChangeActivity extends AppCompatActivity {
                                 restaurant_name.setText(entry.name);
                             }
                         } else if (recognizedString.contains("确认") || recognizedString.contains("点") || recognizedString.contains("不错")) {
+                            recommender.Update(entry.dimension);
                             setContentView(R.layout.voice_xiadan);
                             TextView restaurant_name = (TextView) findViewById(R.id.restaurant_name);
                             restaurant_name.setText(DataBase.result_entry.name);

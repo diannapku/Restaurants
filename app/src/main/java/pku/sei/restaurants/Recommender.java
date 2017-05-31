@@ -1,9 +1,20 @@
 package pku.sei.restaurants;
 
+import android.content.Context;
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import static pku.sei.restaurants.AppConsts.DIMENSIONS;
 
 /**
  * Created by Zhengshuyu on 2017/5/9.
@@ -12,6 +23,8 @@ import java.util.Random;
 public class Recommender {
     private Map<String, Entry> recommend_map = new HashMap<>();
     private Map<String, Integer> flag = new HashMap<>();
+    File cacheDir;
+    String history;
 
     public void listRecommendation(List<Entry> entries) {
         recommend_map.put(AppConsts.WEIGHT, entries.get(0));
@@ -45,8 +58,8 @@ public class Recommender {
                 recommend_map.put(AppConsts.SCORE, entry);
             }
         }
-        for (int i = 0; i < AppConsts.DIMENSIONS.length; i++) {
-            flag.put(AppConsts.DIMENSIONS[i], 0);
+        for (int i = 0; i < DIMENSIONS.length; i++) {
+            flag.put(DIMENSIONS[i], 0);
         }
     }
 
@@ -116,11 +129,12 @@ public class Recommender {
 
     // 换一家（换一个维度推荐）
     public Entry switchRecommendation() {
-        int len = AppConsts.DIMENSIONS.length;
+//        int len = DIMENSIONS.length;
+        int len = 5;
         Random ran = new Random();
         while (len > 0) {
-            int index = ran.nextInt(AppConsts.DIMENSIONS.length);
-            String dimension = AppConsts.DIMENSIONS[index];
+            int index = ran.nextInt(DIMENSIONS.length);
+            String dimension = DIMENSIONS[index];
             if (flag.get(dimension) == 0) {
                 Entry result = recommend_map.get(dimension);
                 result.dimension = dimension;
@@ -139,12 +153,46 @@ public class Recommender {
     }
 
     // 第一次推荐，将燕云获取到的entry列表输入，按综合排序推荐
-    public Entry firstRecommendation(List<Entry> entries) {
+    public Entry firstRecommendation(Context context, List<Entry> entries) {
         listRecommendation(entries);
-        Entry result = recommend_map.get(AppConsts.WEIGHT);
-        result.dimension = AppConsts.WEIGHT;
-        flag.put(AppConsts.WEIGHT, 1);
+        cacheDir = context.getExternalFilesDir(null);
+        File file=new File(cacheDir.getPath(),"history.txt");
+        if(!file.exists())
+        {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                Log.d("zsy","CreateFileErr");
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+                history = (String) in.readObject();
+                in.close();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        Entry result = recommend_map.get(history);
+        result.dimension = history;
+        flag.put(history, 1);
         DataBase.result_entry = result;
         return result;
+    }
+
+    public void Update(String dimension) {
+        history = dimension;
+        File file=new File(cacheDir.getPath(),"history.txt");
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+            out.writeObject(history);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
