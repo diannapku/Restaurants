@@ -165,6 +165,7 @@ public class Recommender {
                 Log.d("zsy","CreateFileErr");
                 e.printStackTrace();
             }
+            history = AppConsts.WEIGHT;
         }
         else {
             try {
@@ -172,7 +173,6 @@ public class Recommender {
                 history = (String) in.readObject();
                 in.close();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
