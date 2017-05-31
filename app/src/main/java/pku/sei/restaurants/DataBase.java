@@ -15,4 +15,5 @@ public class DataBase {
 
     static public String searchString = null;
     static public Entry result_entry = null;
+    static public int count = 0;
 }

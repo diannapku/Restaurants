@@ -133,7 +133,7 @@ public class Recommender {
         int len = 5;
         Random ran = new Random();
         while (len > 0) {
-            int index = ran.nextInt(DIMENSIONS.length);
+            int index = ran.nextInt(5);
             String dimension = DIMENSIONS[index];
             if (flag.get(dimension) == 0) {
                 Entry result = recommend_map.get(dimension);

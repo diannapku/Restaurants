@@ -40,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
         // 获取地址结束，地址在location里面。具体获取时间未知，所以使用Location之前需要判断是不是null。
 
 
+        Runnable r = new Runnable(){
+            @Override
+            public void run() {
+
+
+            }
+        };
+        new Thread(r).start();
+
+
+
+
         // 语音初始化
         //initalSpeech();
 
@@ -55,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 DataBase.entries = null;
                 recognizedString = null;
                 DataBase.searchString = null;
+                DataBase.count = 0;
                 Speech.mainNlsClient.start();
                 long time = System.currentTimeMillis();
                 while(true) {
