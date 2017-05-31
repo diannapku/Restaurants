@@ -13,6 +13,10 @@ import com.alibaba.idst.nls.NlsListener;
 
 public class ChangeActivity extends AppCompatActivity {
 
+    private String recognizedString = null;
+    private Recommender recommender = new Recommender();
+    Entry entry;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +25,7 @@ public class ChangeActivity extends AppCompatActivity {
         TextView num = (TextView) findViewById(R.id.number);
         num.setText(String.valueOf(DataBase.entries.size()));
 
-        Entry entry = recommender.firstRecommendation(this, DataBase.entries);
+        entry = recommender.firstRecommendation(this, DataBase.entries);
         Speech.mNlsClient_fh.PostTtsRequest("为您推荐" + entry.dimension + "的外卖商家。" + entry.name);
         TextView dimension = (TextView) findViewById(R.id.dimension);
         dimension.setText(entry.dimension);
@@ -48,10 +52,6 @@ public class ChangeActivity extends AppCompatActivity {
         });
 
     }
-
-    private String recognizedString = null;
-    private Recommender recommender = new Recommender();
-    Entry entry;
 
     public NlsListener changeRecognizeListener = new NlsListener() {
         @Override

@@ -24,7 +24,7 @@ public class Recommender {
     private Map<String, Entry> recommend_map = new HashMap<>();
     private Map<String, Integer> flag = new HashMap<>();
     File cacheDir;
-    String history;
+    String history = "";
 
     public void listRecommendation(List<Entry> entries) {
         recommend_map.put(AppConsts.WEIGHT, entries.get(0));
@@ -162,10 +162,9 @@ public class Recommender {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                Log.d("zsy","CreateFileErr");
+                Log.d("zsy", "CreateFileErr");
                 e.printStackTrace();
             }
-            history = AppConsts.WEIGHT;
         }
         else {
             try {
@@ -173,8 +172,12 @@ public class Recommender {
                 history = (String) in.readObject();
                 in.close();
             } catch (Exception e) {
+                Log.d("zsy","ReadFileErr");
                 e.printStackTrace();
             }
+        }
+        if (history == "") {
+            history = AppConsts.WEIGHT;
         }
         Entry result = recommend_map.get(history);
         result.dimension = history;
