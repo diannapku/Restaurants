@@ -26,7 +26,7 @@
                     android:layout_gravity="bottom"
                     android:text="已在"
                     android:textColor="@color/white"
-                    android:textSize="24dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/number"
@@ -35,7 +35,7 @@
                     android:layout_gravity="bottom"
                     android:text="百度外卖"
                     android:textColor="@color/white"
-                    android:textSize="32dp" />
+                    android:textSize="28dp" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -44,7 +44,7 @@
                     android:layout_gravity="bottom"
                     android:text="平台上为您下单"
                     android:textColor="@color/white"
-                    android:textSize="24dp" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
@@ -62,7 +62,7 @@
                     android:layout_gravity="bottom"
                     android:text="嘉和一品(魏公村店)"
                     android:textColor="@color/white"
-                    android:textSize="32dp" />
+                    android:textSize="28dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                     android:layout_gravity="bottom"
                     android:text=" 的"
                     android:textColor="@color/white"
-                    android:textSize="24dp" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
@@ -82,7 +82,85 @@
                 android:layout_marginTop="20dp"
                 android:text="皮蛋瘦肉粥"
                 android:textColor="@color/white"
-                android:textSize="32dp" />
+                android:textSize="28dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总价 "
+                    android:textColor="@color/white"
+                    android:layout_gravity="bottom"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="20"
+                    android:textColor="@color/white"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text=" 元"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="外卖预计在 "
+                    android:textColor="@color/white"
+                    android:layout_gravity="bottom"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="30"
+                    android:textColor="@color/white"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text=" 分钟后送到"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="北京大学第一教学楼"
+                android:textColor="@color/white"
+                android:textSize="28dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,7 +169,7 @@
                 android:layout_marginTop="20dp"
                 android:text="祝您用餐愉快！"
                 android:textColor="@color/white"
-                android:textSize="28dp" />
+                android:textSize="24dp" />
 
     </LinearLayout>
 
