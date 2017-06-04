@@ -16,5 +16,7 @@ public class Restaurant {
     public String startPrice = "";    //起送价
     public String avgDeliveryTime = ""; //配送时间
     public List<String> discount = new ArrayList<>(); //折扣
+    public List<Dish> dishes = new ArrayList<>();
+    public String shopId = "";
 
 }

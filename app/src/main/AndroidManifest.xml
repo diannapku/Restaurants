@@ -52,7 +52,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -61,7 +61,8 @@
         <!-- yunqi's value "3fx3EZ9raFGLGqoRWSMZOEOU75NhBvRS" -->
         <!-- shuyu's value "0rj83GEWFS3OYj8uMWzzRI1z54IXn4ms" -->
 
-        <activity android:name=".ChangeActivity"></activity>
+        <activity android:name=".ChangeActivity" />
+        <activity android:name=".ConfirmActivity"></activity>
     </application>
 
 </manifest>

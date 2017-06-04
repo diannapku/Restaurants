@@ -32,9 +32,31 @@ public class Model {
     public List<Restaurant> baidu = new ArrayList<>();
     public List<Entry> entries = new ArrayList<>();
 
+    HashMap<String, Integer> aliveApps;
+
+    public void confirmOrder(String json) {
+        for(String appPackages : AppConsts.APP_PACKAGES) {
+            int port = 0;
+            if(appPackages.equals("com.baidu.lbs.waimai")) {
+
+                if (aliveApps.get(appPackages) != null) {
+                    port = aliveApps.get(appPackages);
+                }
+                YanCloud yanCloud = YanCloud.fromGet(AppConsts.LOCAL_IP, port);
+                /*
+                --------------------------------------------------
+                没确认要吃东西之前不要取消注释！QAQ
+                //yanCloud.get("anything", "ConfirmOrder", json);
+                --------------------------------------------------
+                 */
+
+            }
+        }
+    }
+
     private void getRaw(String search_str) {
 
-        HashMap<String, Integer> aliveApps = Utils.scanPort();
+        aliveApps = Utils.scanPort();
 
         for(String appPackages : AppConsts.APP_PACKAGES) {
             // 查询美团
@@ -200,20 +222,30 @@ public class Model {
             JSONObject jsonObject = new JSONObject(baidu_str);
             JSONArray jsonarray = jsonObject.getJSONArray("list");
             int len = jsonarray.length();
+            Log.v("sxh", Integer.toString(len));
+
             for (int i = 0; i < len; i++) {
                 JSONObject res = jsonarray.getJSONObject(i);
                 Restaurant temp = new Restaurant();
-                temp.name = res.getString("name");
-                temp.avgDeliveryTime = res.getString("avgDeliveryTime");
+                temp.name = res.getString("shop_name");
+
+                Log.v("sxh", res.getString("shop_name"));
+
+                temp.avgDeliveryTime = res.getString("delivery_time");
                 temp.distance = Integer.toString(res.getInt("distance"));
-                temp.score = res.getString("score");
-                temp.monthSaleNum = Integer.toString(res.getInt("monthSaleNum"));
-                temp.startPrice = res.getString("startPrice");
-                temp.deliveryPrice = res.getString("deliveryPrice");
-                JSONArray discount = res.getJSONArray("discount");
-                for (int j = 0; j < discount.length(); j++)
-                    temp.discount.add(discount.getJSONObject(j).getString("discountInfo"));
+                temp.score = res.getString("average_score");
+                temp.monthSaleNum = Integer.toString(res.getInt("saled_month"));
+                temp.startPrice = res.getString("takeout_price");
+                temp.deliveryPrice = res.getString("takeout_cost");
+                temp.shopId = res.getString("shop_id");
+
+                JSONArray dishlist = res.getJSONArray("dish_list");
+                for (int j = 0; j < dishlist.length(); j++) {
+                    Log.v("dish", dishlist.getJSONObject(j).getString("name"));
+                    temp.dishes.add(new Dish(Double.valueOf(dishlist.getJSONObject(j).getString("current_price")), dishlist.getJSONObject(j).getString("item_id"), dishlist.getJSONObject(j).getString("name")));
+                }
                 baidu.add(temp);
+
             }
         } catch (JSONException e) {
             Log.v("setEntryList::BaiJson::", e.getMessage());

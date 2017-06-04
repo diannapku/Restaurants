@@ -6,6 +6,11 @@ package pku.sei.restaurants;
  */
 public class AppConsts {
 
+    public static final String userPhone = "18811789708";
+
+    public static final String userName = "孙小涵";
+
+    public static final String userAddress = "北京大学33楼";
 
     public static final String LOCAL_IP = "127.0.0.1";
 

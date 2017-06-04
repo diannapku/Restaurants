@@ -1,5 +1,6 @@
 package pku.sei.restaurants;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,7 +71,7 @@ public class ChangeActivity extends AppCompatActivity {
                     if (recognizedString != null) {
                         if (recognizedString.contains("换")) {
                             if (DataBase.count == 2) {
-                                Speech.mNlsClient_fh.PostTtsRequest("你可能不想吃这道菜。");
+                                Speech.mNlsClient_fh.PostTtsRequest("您可能不想吃这道菜，试试其他的吧。");
                                 finish();
                             }
                             entry = recommender.switchRecommendation();
@@ -87,12 +88,8 @@ public class ChangeActivity extends AppCompatActivity {
 
                         } else if (recognizedString.contains("确认") || recognizedString.contains("点") || recognizedString.contains("不错")) {
                             recommender.Update(entry.dimension);
-                            setContentView(R.layout.voice_xiadan);
-                            TextView restaurant_name = (TextView) findViewById(R.id.restaurant_name);
-                            restaurant_name.setText(DataBase.result_entry.name);
-                            TextView dish_name = (TextView) findViewById(R.id.dish);
-                            dish_name.setText(DataBase.searchString);
-                            Speech.mNlsClient_fh.PostTtsRequest("已为您在美团外卖 下单 一份 " + DataBase.searchString + "。祝您用餐愉快！");
+                            Intent intent =new Intent(ChangeActivity.this, ConfirmActivity.class);
+                            startActivity(intent);
                         } else {
                             Speech.mNlsClient_fh.PostTtsRequest("我没有听懂您的意思。");
                         }

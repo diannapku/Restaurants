@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="美团外卖"
+                    android:text="百度外卖"
                     android:textColor="@color/white"
                     android:textSize="32dp" />
 

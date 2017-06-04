@@ -40,17 +40,6 @@ public class MainActivity extends AppCompatActivity {
         // 获取地址结束，地址在location里面。具体获取时间未知，所以使用Location之前需要判断是不是null。
 
 
-        Runnable r = new Runnable(){
-            @Override
-            public void run() {
-
-
-            }
-        };
-        new Thread(r).start();
-
-
-
 
         // 语音初始化
         //initalSpeech();
