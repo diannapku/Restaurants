@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 recognizedString = null;
                 DataBase.searchString = null;
                 DataBase.count = 0;
+                DataBase.result_entry = null;
                 Speech.mainNlsClient.start();
                 long time = System.currentTimeMillis();
                 while(true) {
@@ -87,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         Runnable r = new Runnable(){
                             @Override
                             public void run() {
-                                Model model = new Model();
-                                DataBase.entries = model.getEntries(recognizedString, DataBase.location);
+                                DataBase.entries = DataBase.model.getEntries(recognizedString, DataBase.location);
                             }
                         };
                         new Thread(r).start();

@@ -43,12 +43,10 @@ public class Model {
                     port = aliveApps.get(appPackages);
                 }
                 YanCloud yanCloud = YanCloud.fromGet(AppConsts.LOCAL_IP, port);
-                /*
-                --------------------------------------------------
-                没确认要吃东西之前不要取消注释！QAQ
+
+                Log.v("bsk", json);
+
                 //yanCloud.get("anything", "ConfirmOrder", json);
-                --------------------------------------------------
-                 */
 
             }
         }
