@@ -17,7 +17,7 @@ public class ConfirmActivity extends AppCompatActivity {
             Dish dish = DataBase.result_entry.baidu.dishes.get(0);
             dish_name.setText(dish.name);
             TextView price = (TextView) findViewById(R.id.price);
-            price.setText(Double.toString(dish.current_price));
+            price.setText(Double.toString(dish.current_price + Double.valueOf(DataBase.result_entry.baidu.deliveryPrice)));
             TextView time = (TextView) findViewById(R.id.time);
             time.setText(DataBase.result_entry.baidu.avgDeliveryTime);
             TextView address = (TextView) findViewById(R.id.address);

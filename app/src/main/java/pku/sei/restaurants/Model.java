@@ -27,10 +27,10 @@ public class Model {
     private String rawFromMeituan = new String();
     private String rawFromEleme = new String();
 
-    public List<Restaurant> eleme = new ArrayList<>();
-    public List<Restaurant> meituan = new ArrayList<>();
-    public List<Restaurant> baidu = new ArrayList<>();
-    public List<Entry> entries = new ArrayList<>();
+    public List<Restaurant> eleme;
+    public List<Restaurant> meituan;
+    public List<Restaurant> baidu;
+    public List<Entry> entries;
 
     HashMap<String, Integer> aliveApps;
 
@@ -395,6 +395,11 @@ public class Model {
 
         Log.v("sxh", "纬度" + location.getLatitude());
         Log.v("sxh", "经度" + location.getLongitude());
+
+        eleme = new ArrayList<>();
+        meituan = new ArrayList<>();
+        baidu = new ArrayList<>();
+        entries = new ArrayList<>();
 
         getRaw(search_str);
 
