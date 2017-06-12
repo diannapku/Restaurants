@@ -1,0 +1,18 @@
+在这个网站申请key：
+http://lbsyun.baidu.com/apiconsole/key?application=key
+
+创建应用
+
+应用名称：Restaurants
+应用类型：Android SDK
+
+SHA1:
+windows下的一种获取方法
+控制台：
+> cd .android
+> keytool -list -v -keystore debug.keystore
+证书指纹里面有一个SHA1直接复制过去
+
+包名：pku.sei.restaurants
+
+生成的key替换manifest里面倒数第三行android:value=""引号里面的东西。
